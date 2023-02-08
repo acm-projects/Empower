@@ -50,12 +50,13 @@ Lay out the MVP and stretch goals.
 ## Tech Stack
 
 ### IDE
-- We will be using Visual Studio Code. This is because it is a very common and relatively lightweight text editor, and has easy integration with Git.
+- We will be using [Visual Studio Code](https://code.visualstudio.com/download). This is because it is a very common and relatively lightweight text editor, and has easy integration with Git.
 ### Version Control
-- Since projects are hosted on Github, we will be using Git.
+- Since projects are hosted on GitHub, we will be using [Git](https://git-scm.com/).
 ### Front-end
-- Figma
+- [Figma](https://www.figma.com/)
 	- Figma will be used for wireframing.
+	- [Tutorial for Figma](https://www.youtube.com/watch?v=II-6dDzc-80)
 - React Native
 	- The end goal seems most doable with a mobile app, and React Native allows for the most versatility when creating a mobile app. It is more complicated than Flutter, but it is very powerful.
 		
