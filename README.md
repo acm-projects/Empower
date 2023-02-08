@@ -59,6 +59,7 @@ Lay out the MVP and stretch goals.
 	- [Tutorial for Figma](https://www.youtube.com/watch?v=II-6dDzc-80)
 - React Native
 	- The end goal seems most doable with a mobile app, and React Native allows for the most versatility when creating a mobile app. It is more complicated than Flutter, but it is very powerful.
+	- [Tutorial for React Native] (https://www.youtube.com/watch?v=0-S5a0eXPoc)
 		
 ### Back-end
 - React Native
