@@ -18,11 +18,11 @@ People use technology every day to help them with tasks and it has become an int
 ## Schedule
 ### Introduction
 
- 1. Install basic components (VS Code, Git, etc.)
- 2. Finalize the tech stack.
+1. Install basic components (VS Code, Git, etc.)
+2. Finalize the tech stack.
 	 - AWS should stay, but things like React Native vs. Flutter may turn out differently.
 	 - Once finalized, install necessary components like React Native.
-Lay out the MVP and stretch goals.
+3. Lay out the MVP and stretch goals.
 
 ### Frontend
 1. Get Figma and begin wireframing based on the MVP and stretch goals we laid out.
@@ -44,8 +44,16 @@ Lay out the MVP and stretch goals.
 	- Trigger the Polly function from text and generate a downloadable audio file.
 
 ### Presentation
-- Start working on the presentation about a month before presentation night.
-- Prepare a live demo if possible. Most things are being done through AWS, so it should be relatively easy to live demo.
+1. Start working on the presentation about a month before presentation night.
+2. Prepare a live demo if possible. Most things are being done through AWS, so it should be relatively easy to live demo.
+
+## Software to Install
+- [Figma](https://www.figma.com/)
+- [Git](https://git-scm.com/downloads)
+- [React Native](https://reactnative.dev/docs/environment-setup)
+		- I would recommend you look at both Expo and the CLI. Both have their benefits, but if you're new to React/React Native, Expo is really nice.
+- [VS Code](https://code.visualstudio.com/download)
+- [Node.js](https://nodejs.org/en/download/)
 
 ## Tech Stack
 
@@ -53,13 +61,12 @@ Lay out the MVP and stretch goals.
 - We will be using [Visual Studio Code](https://code.visualstudio.com/download). This is because it is a very common and relatively lightweight text editor, and has easy integration with Git.
 ### Version Control
 - Since projects are hosted on GitHub, we will be using [Git](https://git-scm.com/).
+- 
 ### Front-end
 - [Figma](https://www.figma.com/)
 	- Figma will be used for wireframing.
-	- [Tutorial for Figma](https://www.youtube.com/watch?v=II-6dDzc-80)
 - React Native
 	- The end goal seems most doable with a mobile app, and React Native allows for the most versatility when creating a mobile app. It is more complicated than Flutter, but it is very powerful.
-	- [Tutorial for React Native] (https://www.youtube.com/watch?v=0-S5a0eXPoc)
 		
 ### Back-end
 - React Native
@@ -78,14 +85,14 @@ Lay out the MVP and stretch goals.
 	- This is for the general-purpose chatbot. 
 
 
-## Software to Install
-- Figma (If a desktop app is easier)
-- React Native
-- Git
-- VS Code
-- Node.js
+## Resources
+- [Learn JavaScript](https://www.javascript.com/learn)
+- [Tutorial for Figma](https://www.youtube.com/watch?v=II-6dDzc-80)
+- [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+- [Connecting to GitHub](https://training.github.com/downloads/github-git-cheat-sheet/)
 
-## Competition/"""INSPIRATION"""
+
+## Competition/Inspiration
 1. Speech Assistant AAC
 	- TTS app for the speech-impaired. The biggest feature is that common phrases and categories can be placed on buttons.
 
@@ -94,5 +101,16 @@ Lay out the MVP and stretch goals.
 
 3. Built-in dictation apps
 	- This is a general field for things like Google Docs speech-to-text, Apple Dictation, Windows Dictation, etc.
+
+## Personnel
+- Team Members:
+	- Joshua Mathew
+	- Thuyan Dang
+	- Muhammad Siddique
+	- Angel Gomez
+- Project Manager
+	- Naveen Mukkatt
+- Industry Mentor
+	- Jon Perry
 
 
