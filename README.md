@@ -65,12 +65,12 @@ People use technology every day to help them with tasks and it has become an int
 ### Front-end
 - [Figma](https://www.figma.com/)
 	- Figma will be used for wireframing.
-- React Native
+- [React Native](https://reactnative.dev/)
 	- The end goal seems most doable with a mobile app, and React Native allows for the most versatility when creating a mobile app. It is more complicated than Flutter, but it is very powerful.
 		
 ### Back-end
 - React Native
-- DynamoDB (In continuation with the AWS approach)
+- [DynamoDB](https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#service) (In continuation with the AWS approach)
 
 ### APIs
 - [Amazon Transcribe (AWS)](https://us-east-1.console.aws.amazon.com/transcribe/home?region=us-east-1#welcome)
