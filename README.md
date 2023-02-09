@@ -73,13 +73,13 @@ People use technology every day to help them with tasks and it has become an int
 - DynamoDB (In continuation with the AWS approach)
 
 ### APIs
-- Amazon Transcribe (AWS)
+- [Amazon Transcribe (AWS)](https://us-east-1.console.aws.amazon.com/transcribe/home?region=us-east-1#welcome)
 	- The speech-to-text function of Empower can be done through Amazon Transcribe. With the AWS Free Tier, 60 minutes can be transcribed per month. Given how most test videos will be between 1-2 minutes, this allows at least 30 attempts at transcribing audio files per month. Further costs are not large; a minute of audio would cost around three cents.
-- Amazon Polly (AWS)
+- [Amazon Polly (AWS)](https://us-east-1.console.aws.amazon.com/polly/home?region=us-east-1#)
 	- Text-to-speech can be done with Amazon Polly, another product of AWS. It has the ability to produce natural-sounding human speech from text.
-- Amazon S3 (AWS)
+- [Amazon S3 (AWS)](https://s3.console.aws.amazon.com/s3/get-started?region=us-east-1)
 	- Transcribe and Polly rely on S3 to store audio and text files, so S3 will be used to store audio and text data.
-- Amazon CloudFront (AWS)
+- [Amazon CloudFront (AWS)](https://us-east-1.console.aws.amazon.com/cloudfront/v3/home?region=us-east-1#/welcome)
 	- CloudFront can be used to quickly retrieve files from S3 and deliver them to the app for use.
 - ChatGPT (OpenAI)
 	- This is for the general-purpose chatbot. 
