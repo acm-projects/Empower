@@ -59,7 +59,7 @@ router.delete('/:id', getUser, async (req, res) => {
 async function getUser(req, res, next) {
     let user
     try{   
-            user = await User.findById(req.params.id)
+        user = await User.findById(req.params.id)
         if (user == null){
             return res.status(404).json({ message: 'Cannot find user'})
         }
