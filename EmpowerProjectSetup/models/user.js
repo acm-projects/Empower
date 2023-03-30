@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const SALT_ROUNDS = 10
+const MIN_PASS_LEN = 5
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -18,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    minlength: 5,
+    minlength: MIN_PASS_LEN,
     required: false
   },
   disability: {
@@ -38,7 +40,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function(next){
 
   if(!this.isModified('password')) next()
-  this.password = await bcrypt.hash(this.password, 10)
+  this.password = await bcrypt.hash(this.password, SALT_ROUNDS)
   next()
 })
 
