@@ -106,7 +106,7 @@ People use technology every day to help them with tasks and it has become an int
 - Team Members:
 	- Joshua Mathew
 	- Thuyan Dang
-	- Muhammad Siddique
+	- Hamzah Ismail
 	- Angel Gomez
 - Project Manager
 	- Naveen Mukkatt
