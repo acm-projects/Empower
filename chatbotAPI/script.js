@@ -16,5 +16,7 @@ openai.createChatCompletion({
     messages: [{role: "user", content: "What is the definition of a triple integral, and show one example"}]
 }).then(res => {
     console.log(res.data.choices[0].message.content);
-    const chatbotResponse = res.data.choices[0].message.content;
+    let chatbotResponse = res.data.choices[0].message.content;
 });
+
+export {chatbotResponse};

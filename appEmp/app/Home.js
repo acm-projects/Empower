@@ -5,7 +5,6 @@ import {useRouter, useSearchParams} from 'expo-router'
 import { globalElements } from './../ui/globalUI.js';
 import {StatusBar} from 'expo-status-bar';
 
-let checkStatus = false;
 
 export const colorBlindMode = (checkStatus) => {
   (checkStatus? checkStatus = false: checkStatus = true);
@@ -38,16 +37,16 @@ const Home = () => {
           <Text style={homePage.subtitle}>Social</Text>
         </Pressable>
 
-        <Pressable style={homePage.buttons} onPress={()=>router.push('./TextToSpeech')}>
-          <Text style={homePage.subtitle}>Text-To-Speech</Text>
-        </Pressable>
-
         <Pressable style={homePage.buttons} onPress={()=>router.push('./SpeechToText')}>
-          <Text style={homePage.subtitle}>Speech-To-Text</Text>
+          <Text style={homePage.subtitle}>Text-To-Speech</Text>
         </Pressable>
 
         <Pressable style={homePage.buttons} onPress={()=>router.push('./Chatbot')}>
           <Text style={homePage.subtitle}>Chatbot</Text>
+        </Pressable>
+
+        <Pressable style={homePage.buttons} onPress={()=>router.push('./TextToSpeech')}>
+          <Text style={homePage.subtitle}>Speech-to-text</Text>
         </Pressable>
 
       </View>

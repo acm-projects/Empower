@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { globalElements } from './../ui/globalUI.js';
+//import { chatbotResponse } from './../../chatbotAPI/script.js';
 
 let userInput;
 
