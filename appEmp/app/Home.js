@@ -88,11 +88,16 @@ const homePage = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 30,
     elevation: 3,
-    backgroundColor: 'black',
+    backgroundColor: '#e2caf1',
     height: 60,
   }
 });
 
 export default Home;
+
+//e2caf1
+
+//text
+//dark gray

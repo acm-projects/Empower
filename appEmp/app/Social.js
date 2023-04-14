@@ -1,3 +1,4 @@
+/*
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
 import {UserBubble} from '../empowerTags/userBubble';
@@ -62,3 +63,4 @@ const social = StyleSheet.create({
 
 
 export default Social;
+*/
