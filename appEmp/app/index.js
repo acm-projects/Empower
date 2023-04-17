@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ImageBackground, TextInput, Button, Animated } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useState, Component} from 'react';
-import {useRouter, useSearchParams, useNavigation} from 'expo-router'
+import {useRouter, useSearchParams, useNavigation, Link} from 'expo-router'
 import { globalElements } from './../ui/globalUI.js';
 
 
