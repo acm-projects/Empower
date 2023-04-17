@@ -1,10 +1,8 @@
-import { StyleSheet, Text, View, ImageBackground, TextInput, Button, Animated } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button, ImageBackground, Pressable} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import React, {useState, Component} from 'react';
-import {useRouter, useSearchParams, useNavigation, Link} from 'expo-router'
-import { globalElements } from './../ui/globalUI.js';
-
-
+import React, {useState} from 'react';
+import {useRouter, useSearchParams, useNavigation} from 'expo-router'
+import { globalElements } from '../ui/globalUI.js';
 
 const handleSubmit = (u, p) => {
   const usernameRegex = /^[a-zA-Z0-9]{5,11}$/;
@@ -21,7 +19,7 @@ const handleSubmit = (u, p) => {
   }
 };
 
-const Page = () => {
+const Signup = () => {
   const router = useRouter();
   const {name} = useSearchParams();
   const navigation = useNavigation();
@@ -35,11 +33,10 @@ const Page = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
     >
+    <ImageBackground source={require('../assets/logo.png')} resizeMode="contain">
       <View style={loginPage.main}>
-        <ImageBackground source={require('./../assets/logo.png')} resizeMode="contain" style={{height: 250}}>
         <View style={{style: 'inline'}}>
-
-        </View>
+      </View>
           <View style={{padding: 50}}>
             <TextInput style={loginPage.input} 
                   placeholder='Username' 
@@ -53,20 +50,16 @@ const Page = () => {
                   secureTextEntry
               />
           </View>
-          <View style={{alignContent: 'center', alignSelf: 'center'}}>
+          <View style={{alignContent: 'center', alignSelf: 'center', justifyContent: 'row'}}>
+          
           <Button
             onPress={ ()=>router.push(`./Home?name=${username}`) }
-            title="Login"
-            color='black'
-          />
-          <Button
-            onPress={ ()=>router.push(`./Signup`) }
-            title="New user"
+            title="Signup"
             color='black'
           />
           </View>
-        </ImageBackground>
       </View>
+    </ImageBackground>
     </LinearGradient>
   );
 }
@@ -99,7 +92,8 @@ const loginPage = StyleSheet.create({
       width: 350,
       backgroundColor: 'white',
       borderRadius: 30
-  }
+  },
+  
 });
 
-export default Page;
+export default Signup;

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, Pressable, Button } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useContext} from 'react';
 import {useRouter, useSearchParams, Link} from 'expo-router'
-import { globalElements } from './../ui/globalUI.js';
+import { globalElements } from '../ui/globalUI.js';
 import {StatusBar} from 'expo-status-bar';
 
 
@@ -29,7 +29,7 @@ const Home = () => {
       <Button title="Color blind mode" onPress={handleClick}/>
       <View style={homePage.topContainer}>
         <View>
-          <Image source={require('./../assets/anon.png')} resizeMode="contain" style={{width: 50, height: 50, borderRadius: 25,}}/>
+          <Image source={require('../assets/anon.png')} resizeMode="contain" style={{width: 50, height: 50, borderRadius: 25,}}/>
         </View>
           <Text style={{fontSize: 30, position: 'absolute', paddingLeft: 40, style: 'inline'}}>Welcome,  
             <Text style={{fontWeight: 'bold', fontStyle: 'italic'}}> {name}</Text>

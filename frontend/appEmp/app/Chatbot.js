@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
-import { globalElements } from './../ui/globalUI.js';
+import { globalElements } from '../ui/globalUI.js';
 import {useRouter} from 'expo-router';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const router = useRouter();
 
-  const KEY = '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';
+  const KEY = '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';
 
   const handleSend = async (newMessage = []) => {
     try {
@@ -106,43 +106,4 @@ const chatbot = StyleSheet.create({
 
 
 
-export default Chatbot;
-
-
-
-/*
-import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { globalElements } from './../ui/globalUI.js';
-
-
-
-
-const Chatbot = () => {
-
-  const [userinput, setUserninput] = useState('ASK AWAY!!!');
-    return(
-        <LinearGradient
-        colors={[globalElements.index0, globalElements.index1, globalElements.index2]}
-        style={chatbot.container}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        >
-        <KeyboardAvoidingView>
-          <Pressable style={chatbot.back}>
-              <Text>This needs to go  back</Text>
-          </Pressable>
-          <View>
-            <ScrollView style={chatbot.textArea}>
-              
-            </ScrollView>
-            <View>
-
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-        </LinearGradient>
-    );
-}
-*/
+export default Chatbot
