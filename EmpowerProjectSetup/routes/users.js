@@ -21,12 +21,29 @@ router.get('/:id', getUser, (req, res) => {
 })
 
 //create the login router
+router.post('/login', async(req, res) => {
+
+    const body = req.body
+    const user = await User.findOne({ email: body.email})
+
+    if(user){
+
+        const result = await bcrypt.compare(body.password, user.password)
+
+        if(result){
+            res.status(200).json({validated: true, message: "Valid Password"})
+        }
+        else{
+        res.status(400).json({validated: false, message: "Not a valid password"})
+        }
+    }
+    else{
+        res.status(401).json({validated: false, message: "Not a valid user"})
+    }
+})
 
 
-// Creating one (/add)
-
-
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     const user = new User({
         name: req.body.name,
         email: req.body.email,
