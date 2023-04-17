@@ -20,12 +20,10 @@ router.get('/:id', getUser, (req, res) => {
     res.json(res.user)
 })
 
-//create the login router
+// create the login router
 
 
 // Creating one (/add)
-
-
 router.post('/', async (req, res) => {
     const user = new User({
         name: req.body.name,
@@ -67,6 +65,7 @@ router.delete('/:id', getUser, async (req, res) => {
     }
 })
 
+// Middleware
 async function getUser(req, res, next) {
     let user
     try{   

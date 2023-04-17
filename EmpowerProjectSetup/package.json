@@ -12,22 +12,24 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.292.0",
+    "@aws-sdk/client-transcribe": "^3.312.0",
     "@aws-sdk/lib-dynamodb": "^3.292.0",
-    "aws-sdk": "^2.1336.0",
+    "aws-sdk": "^2.1359.0",
     "aws-sdk-js-codemod": "^0.14.1",
     "bcrypt": "^5.1.0",
     "codemod": "^0.0.4",
-    "dotenv": "^16.0.3",
     "expo": "~48.0.4",
     "expo-status-bar": "~1.4.4",
-    "express": "4.18.2",
-    "mongoose": "^7.0.2",
-    "nodemon": "^2.0.21",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "multer": "^1.4.5-lts.1",
     "react": "18.2.0",
     "react-native": "0.71.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.22"
   },
   "private": true,
   "author": "",
