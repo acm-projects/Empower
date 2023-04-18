@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
-import { globalElements } from '../ui/globalUI.js';
+import { globalElements } from './../ui/globalUI.js';
 import {useRouter} from 'expo-router';
 
 const Chatbot = () => {

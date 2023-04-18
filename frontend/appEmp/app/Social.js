@@ -3,7 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import {StyleSheet, View, ScrollView, Text} from 'react-native'
-import { globalElements } from '../ui/globalUI.js';
+import { globalElements } from './../ui/globalUI.js';
 
 
 const Social = () => {

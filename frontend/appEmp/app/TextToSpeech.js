@@ -3,7 +3,7 @@ import { Text, TextInput, View, Button, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Speech from 'expo-speech';
 import {useRouter} from 'expo-router'
-import { globalElements } from '../ui/globalUI.js';
+import { globalElements } from './../ui/globalUI.js';
 
 const TextToSpeech = () => {
   const [text, setText] = useState('');
