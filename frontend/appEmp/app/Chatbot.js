@@ -1,42 +1,98 @@
-import React, {useState} from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput} from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
+import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { globalElements } from './../ui/globalUI.js';
-//import { chatbotResponse } from './../../chatbotAPI/script.js';
-
-let userInput;
+import {useRouter} from 'expo-router';
 
 const Chatbot = () => {
+  const [messages, setMessages] = useState([]);
+  const router = useRouter();
 
-  const [userinput, setUserninput] = useState('ASK AWAY!!!');
-    return(
-        <LinearGradient
-        colors={[globalElements.index0, globalElements.index1, globalElements.index2]}
-        style={chatbot.container}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        >
-        <KeyboardAvoidingView>
-          <Pressable style={chatbot.back}>
-              <Text>This needs to go  back</Text>
-          </Pressable>
-          <View>
-            <ScrollView style={chatbot.textArea}>
-              
-            </ScrollView>
-            <View>
+  const KEY = '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';
 
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-        </LinearGradient>
-    );
+  const handleSend = async (newMessage = []) => {
+    try {
+      //Get the user's message
+        const userMessage = newMessage[0];
+
+        //Add the user's message to the message state
+        setMessages(previousMessages=> GiftedChat.append(previousMessages, userMessage));
+        const messageText = userMessage.text.toLowerCase();
+        const response = await axios.post('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+        prompt: newMessage[0].text,
+        max_tokens: 1200,
+        temperature: 0.2,
+        n: 1,
+      },{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${KEY}`
+        }
+      })
+      console.log(response.data);
+
+      const answer = response.data.choices[0].text.trim();
+      const botMessage = {
+        _id: new Date().getTime()+1,
+        text: answer,
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'chatbot'
+        }
+      }
+
+      setMessages(previousMessages=> GiftedChat.append(previousMessages, botMessage));
+    }catch(error){
+      console.log(error);
+    }
+
+    
+  }
+
+  return (
+    <LinearGradient
+    colors={[globalElements.index0, globalElements.index1, globalElements.index2]}
+    style={chatbot.container}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 0 }}
+  >
+      <View
+      style={{
+        backgroundColor: '#F5F5F5',
+        padding: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 40,
+        marginTop: 5
+      }}>
+        <Text style={{
+          fontSize: 32,
+          fontWeight: 'bold'
+        }}>
+          CHATBOT
+        </Text>
+        <Button title="Back" onPress={()=>router.back()} style={{alignSelf: 'left'}}/>
+      </View>
+        <GiftedChat 
+          messages={messages}
+          onSend={newMessages => handleSend(newMessages)}
+          user={{
+            _id: 1,
+            name: 'user'
+          }}
+          style={{paddingBottom: 100}}
+        />
+      
+    </LinearGradient>
+  );
 }
 
 const chatbot = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 100,
+    flex: 1
   },
   textArea: {
     backgroundColor: '#5A7193',
@@ -48,4 +104,6 @@ const chatbot = StyleSheet.create({
       
 });
 
-export default Chatbot;
+
+
+export default Chatbot

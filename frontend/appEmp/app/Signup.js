@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, Button, ImageBackground, Pressable} 
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useState} from 'react';
 import {useRouter, useSearchParams, useNavigation} from 'expo-router'
-import { globalElements } from './../ui/globalUI.js';
+import { globalElements } from '../ui/globalUI.js';
 
 const handleSubmit = (u, p) => {
   const usernameRegex = /^[a-zA-Z0-9]{5,11}$/;
@@ -33,7 +33,7 @@ const Signup = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
     >
-    <ImageBackground source={require('./../assets/logo.png')} resizeMode="contain">
+    <ImageBackground source={require('../assets/logo.png')} resizeMode="contain">
       <View style={loginPage.main}>
         <View style={{style: 'inline'}}>
       </View>
