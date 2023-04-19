@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const multer = require("multer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { TranscribeClient, StartTranscriptionJobCommand, GetTranscriptionJobCommand } = require('@aws-sdk/client-transcribe')
 const router = express.Router();
 const File = require("./models/file");
 module.exports = router;
@@ -22,6 +23,14 @@ const s3 = new S3Client({
   region: bucketRegion,
 });
 
+const transcribe = new TranscribeClient({
+  region: bucketRegion,
+  credentials: {
+      accessKeyId: accessKey,
+      secretAccessKey: secretAccessKey,
+  },
+});
+
 // connect to database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -34,13 +43,6 @@ app.use(express.json());
 const userRouter = require("./routes/users.js");
 app.use("/users", userRouter);
 
-//file routes
-/*
-var upload = multer({
-    dest: '/file',
-    storage: multer.memoryStorage()
-});
-*/
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 upload.single("myFile");
@@ -70,7 +72,41 @@ app.post("/file", upload.single("myFile"), async (req, res) => {
   const command = new PutObjectCommand(params);
   await s3.send(command);
 
-  res.send(req.file);
+  // *** TRANSCRIPTION JOB ***
+
+    // unique transcription job name by appending current timestamp
+    const transcriptionJobName = `transcription-job-${Date.now()}`;
+    const mediaFileUri = `s3://${bucketName}/${params.Key}`;
+
+    const transcriptionParams = {
+        TranscriptionJobName: transcriptionJobName,
+        Media: { MediaFileUri: mediaFileUri },
+        MediaFormat: 'wav',
+        LanguageCode: 'en-US'
+      };
+
+      // validate audio file
+      try {
+        const transcriptionJob = await transcribe.send(new StartTranscriptionJobCommand(transcriptionParams));
+        console.log(`Transcription job ${transcriptionJob.TranscriptionJob.TranscriptionJobName} started.`);
+
+        // get transcription result and send it as response
+        const { TranscriptionJob } = await transcribe.send(new GetTranscriptionJobCommand({ TranscriptionJobName: transcriptionJobName}));
+        const transcriptionResultUri = TranscriptionJob.Transcript.TranscriptFileUri;
+
+        const response = await fetch(transcriptionResultUri);
+        const transcription = await response.text();
+        
+        res.send(transcription);
+
+      } catch (err) {
+        console.log(`Error starting transcription job: ${err}`);
+        res.status(500).send(err);
+      }
+
+    // END
+
+  // res.send(req.file);
 });
 
 router.delete("/file/:id", getFile, async (req, res) => {
