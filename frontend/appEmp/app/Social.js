@@ -1,38 +1,37 @@
-/*
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
-import {UserBubble} from '../empowerTags/userBubble';
-import { globalElements } from './../ui/globalUI.js';
 import React, {useState, useEffect} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  PermissionsAndroid,
-  Platform,
-  Button,
-  ScrollView,
-} from 'react-native';
+import axios from 'axios'
+import {StyleSheet, View, ScrollView, Text} from 'react-native'
+import { globalElements } from './../ui/globalUI.js';
+
 
 const Social = () => {
   return (
-    <SafeAreaView>
-      <ScrollView style={social.container}>
-        <View>
-          <MapView provider={PROVIDER_GOOGLE} style={social.map}/>
+    <View style={styles.container}>
+      <MapView
+      provider={PROVIDER_GOOGLE}
+      style={styles.map}
+      region={{
+        latitude: 32.9857,
+        longitude: -96.7502,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121
+      }}/>
+      <ScrollView style={styles.details} horizontal>
+        <View style={styles.events}>
+          <Text> This is something that will be shown </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View> 
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white',
-    padding: 10,
+    ...StyleSheet.absoluteFillObject,
+    height: '50%',
+    justifyContent: 'flex-end',
   },
   boldText: {
     fontSize: 25,
@@ -40,27 +39,19 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     textAlign: 'center'
   },
-});
-
-const social = StyleSheet.create({
-  container: {
-    flex: 1,
-
-  },
   map: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
+    ...StyleSheet.absoluteFillObject,
   },
-  overlay: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
+  details: {
+    height: '50%',
+    paddingTop: 400
+  },
+  events: {
+    heigth: '50%',
+    width: '80%',
     backgroundColor: '#fff',
-  },
+    borderRadius: 10,
+  }
 });
-
 
 export default Social;
-*/

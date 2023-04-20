@@ -1,19 +1,24 @@
 import { StyleSheet, Text, View, Image, Pressable, Button } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
-import {useRouter, useSearchParams} from 'expo-router'
-import { globalElements } from './../ui/globalUI.js';
+import React, {useContext} from 'react';
+import {useRouter, useSearchParams, Link} from 'expo-router'
+import { globalElements } from '../ui/globalUI.js';
 import {StatusBar} from 'expo-status-bar';
 
-
-export const colorBlindMode = (checkStatus) => {
-  (checkStatus? checkStatus = false: checkStatus = true);
-  return checkStatus;
-}
 
 const Home = () => {
   const router = useRouter();
   const {name} = useSearchParams();
+
+
+  function handleClick() {
+    setGlobalElements({
+      index0: index0 === '#8f3289' ? '#8AA9DC' : '#8f3289',
+      index1: index1 === '#562878' ? '#FF8EBD' : '#562878',
+      index2: index2 === '#38328f' ? '#C3FFAD' : '#38328f',
+    });
+  }
+
   return (
     <LinearGradient
       colors={[globalElements.index0, globalElements.index1, globalElements.index2]}
@@ -21,10 +26,10 @@ const Home = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
     >
-      <Button title="Color blind mode" onPress={colorBlindMode}/>
+      <Button title="Color blind mode" onPress={handleClick}/>
       <View style={homePage.topContainer}>
         <View>
-          <Image source={require('./../assets/anon.png')} resizeMode="contain" style={{width: 50, height: 50, borderRadius: 25,}}/>
+          <Image source={require('../assets/anon.png')} resizeMode="contain" style={{width: 50, height: 50, borderRadius: 25,}}/>
         </View>
           <Text style={{fontSize: 30, position: 'absolute', paddingLeft: 40, style: 'inline'}}>Welcome,  
             <Text style={{fontWeight: 'bold', fontStyle: 'italic'}}> {name}</Text>
@@ -37,7 +42,7 @@ const Home = () => {
           <Text style={homePage.subtitle}>Social</Text>
         </Pressable>
 
-        <Pressable style={homePage.buttons} onPress={()=>router.push('./SpeechToText')}>
+        <Pressable style={homePage.buttons} onPress={()=>router.push('./TextToSpeech')}>
           <Text style={homePage.subtitle}>Text-To-Speech</Text>
         </Pressable>
 
@@ -45,7 +50,7 @@ const Home = () => {
           <Text style={homePage.subtitle}>Chatbot</Text>
         </Pressable>
 
-        <Pressable style={homePage.buttons} onPress={()=>router.push('./TextToSpeech')}>
+        <Pressable style={homePage.buttons} onPress={()=>router.push('./SpeechToText')}>
           <Text style={homePage.subtitle}>Speech-to-text</Text>
         </Pressable>
 
@@ -65,8 +70,7 @@ const homePage = StyleSheet.create({
     alignSelf: 'center',
     paddingTop: 100,
     justifyContent: 'space-around',
-    height: 500
-    
+    height: 500 
   },
   title: {
     fontSize: 64,

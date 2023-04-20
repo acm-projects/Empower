@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, ImageBackground, TextInput, Button, Animated } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useState, Component} from 'react';
-import {useRouter, useSearchParams, useNavigation} from 'expo-router'
-import { globalElements } from './../ui/globalUI.js';
+import {useRouter, useSearchParams, useNavigation, Link} from 'expo-router'
+import { globalElements } from '../ui/globalUI.js';
 
 
 
@@ -36,7 +36,7 @@ const Page = () => {
       end={{ x: 1, y: 0 }}
     >
       <View style={loginPage.main}>
-        <ImageBackground source={require('./../assets/logo.png')} resizeMode="contain" style={{height: 250}}>
+        <ImageBackground source={require('../assets/logo.png')} resizeMode="contain" style={{height: 250}}>
         <View style={{style: 'inline'}}>
 
         </View>
