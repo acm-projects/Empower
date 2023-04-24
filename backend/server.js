@@ -1,11 +1,15 @@
 require("dotenv").config();
 
+const axios = require("axios"); 
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const multer = require("multer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const { TranscribeClient, StartTranscriptionJobCommand, GetTranscriptionJobCommand } = require('@aws-sdk/client-transcribe')
+const { PollyClient, SynthesizeSpeechCommand } = require('@aws-sdk/client-polly');
+const { Readable } = require('stream');
 const router = express.Router();
 const File = require("./models/file");
 module.exports = router;
@@ -28,8 +32,15 @@ const transcribe = new TranscribeClient({
   credentials: {
       accessKeyId: accessKey,
       secretAccessKey: secretAccessKey,
-  },
+  }
 });
+
+const polly = new PollyClient({ 
+  region: bucketRegion,
+  credentials: { 
+    accessKeyId: accessKey, secretAccessKey: secretAccessKey 
+  }
+ });
 
 // connect to database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
@@ -45,11 +56,9 @@ app.use("/users", userRouter);
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-upload.single("myFile");
 
 app.get("/file", async (req, res) => {
   try {
-    res.send("hello");
     const files = await File.find();
     res.json(files);
   } catch (err) {
@@ -57,7 +66,8 @@ app.get("/file", async (req, res) => {
   }
 });
 
-app.post("/file", upload.single("myFile"), async (req, res) => {
+// *** TRANSCRIPTION JOB ***
+app.post("/transcribe", upload.single("myFile"), async (req, res) => {
   console.log("req.body", req.body);
   console.log("req.file", req.file);
   req.file.buffer;
@@ -72,8 +82,6 @@ app.post("/file", upload.single("myFile"), async (req, res) => {
   const command = new PutObjectCommand(params);
   await s3.send(command);
 
-  // *** TRANSCRIPTION JOB ***
-
     // unique transcription job name by appending current timestamp
     const transcriptionJobName = `transcription-job-${Date.now()}`;
     const mediaFileUri = `s3://${bucketName}/${params.Key}`;
@@ -81,32 +89,79 @@ app.post("/file", upload.single("myFile"), async (req, res) => {
     const transcriptionParams = {
         TranscriptionJobName: transcriptionJobName,
         Media: { MediaFileUri: mediaFileUri },
-        MediaFormat: 'wav',
+        MediaFormat: 'mp3',
         LanguageCode: 'en-US'
       };
 
-      // validate audio file
       try {
         const transcriptionJob = await transcribe.send(new StartTranscriptionJobCommand(transcriptionParams));
         console.log(`Transcription job ${transcriptionJob.TranscriptionJob.TranscriptionJobName} started.`);
 
-        // get transcription result and send it as response
         const { TranscriptionJob } = await transcribe.send(new GetTranscriptionJobCommand({ TranscriptionJobName: transcriptionJobName}));
-        const transcriptionResultUri = TranscriptionJob.Transcript.TranscriptFileUri;
+        let transcriptionJobStatus = TranscriptionJob.TranscriptionJobStatus;
+        let transcriptionResultUri;
 
-        const response = await fetch(transcriptionResultUri);
-        const transcription = await response.text();
-        
-        res.send(transcription);
+        while (transcriptionJobStatus === 'IN_PROGRESS') {
+          const { TranscriptionJob } = await transcribe.send(new GetTranscriptionJobCommand({ TranscriptionJobName: transcriptionJobName}));
+          transcriptionJobStatus = TranscriptionJob.TranscriptionJobStatus;
+          await new Promise(resolve => setTimeout(resolve, 1000));
 
+          if (transcriptionJobStatus === 'COMPLETED') {
+            const transcriptionResultUri = TranscriptionJob.Transcript.TranscriptFileUri;
+            const response = await fetch(transcriptionResultUri);
+            const transcription = await response.text();
+            res.send(transcription);
+            console.log('Transcription complete.')
+            return;
+          } 
+          else if (transcriptionJobStatus === 'FAILED') {
+            res.status(500).send(`Transcription job failed: ${TranscriptionJob.FailureReason}`);
+            return;
+          } 
+          //status updates every second
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+
+        if (!transcriptionResultUri) {
+          res.status(500).send(`Error retrieving transcription result.`);
+          return;
+        }
       } catch (err) {
         console.log(`Error starting transcription job: ${err}`);
         res.status(500).send(err);
       }
+});
 
-    // END
+// *** POLLY JOB ***
+app.post("/polly", async (req, res) => {
+      try {
+        const text = req.body.text;
+        // customizable voiceId, joanna by default
+        const voiceId = req.body.voiceId ? req.body.voiceId : "Joanna";
 
-  // res.send(req.file);
+        if (!text) {
+          return res.status(400).json({ message: "Text value is missing or empty" });
+        }        
+  
+        const pollyParams = {
+          OutputFormat: "mp3",
+          Text: text,
+          VoiceId: voiceId,
+        }; 
+  
+        const command = new SynthesizeSpeechCommand(pollyParams);
+        const { AudioStream } = await polly.send(command);
+        const audioStream = Readable.from(AudioStream);
+  
+        res.set("Content-Type", "audio/mpeg");
+        audioStream.pipe(res);
+
+        console.log("Polly job complete")
+
+        } catch(err) {
+          console.error(err);
+          res.status(500).json({ message: "Failed to synthesize speech" });
+        } 
 });
 
 router.delete("/file/:id", getFile, async (req, res) => {
@@ -120,7 +175,7 @@ router.delete("/file/:id", getFile, async (req, res) => {
 
 async function getFile(req, res, next) {
   let file;
-  try {
+  try { 
     file = await File.findById(req.params.id);
     if (file == null) {
       return res.status(404).json({ message: "Cannot find file" });
