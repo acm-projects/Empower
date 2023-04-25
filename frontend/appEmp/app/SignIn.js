@@ -86,7 +86,7 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#000424",
     borderWidth: 0,
   },
   image: {
@@ -159,6 +159,19 @@ const styles = StyleSheet.create({
   },
   signupText: {
     color: "#FFFF",
+  },
+  signupBtn: {
+    width: "70%",
+    backgroundColor: "#FFC0CB",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    marginBottom: 10,
+    marginLeft: 60,
+    elevation: 8,
+    shadowColor: "#000",
   },
 });
 
