@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, Button } from "react-native";
+/*import { StyleSheet, Text, View, Image, Pressable, Button } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useContext } from "react";
 import { useRouter, useSearchParams, Link } from "expo-router";
@@ -134,3 +134,108 @@ export default Home;
 
 //text
 //dark gray
+*/
+
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
+
+import background from "../assets/homeBack3.jpeg";
+import { LinearGradient } from "expo-linear-gradient";
+
+const HomeScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        source={background}
+        resizeMode="cover"
+        style={styles.backgroundImage}
+      ></ImageBackground>
+      <View style={styles.contentContainer}>
+        <LinearGradient
+          colors={["#FFC0CB", "#4c00b0"]}
+          style={styles.contentContainer}
+        >
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("TextToSpeech");
+              }}
+            >
+              <Text style={styles.buttonText}>Text to Speech</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("Chatbot");
+              }}
+            >
+              <Text style={styles.buttonText}>Chatbot</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("Social");
+              }}
+            >
+              <Text style={styles.buttonText}>Social</Text>
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#170E49",
+  },
+  button: {
+    width: "70%",
+    backgroundColor: "#4c00b0",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    marginBottom: 10,
+    marginLeft: 60,
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: -40,
+    borderBottomRightRadius: -40,
+    marginLeft: -35,
+  },
+  contentContainer: {
+    flex: 1,
+    backgroundColor: "#4c00b0",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    padding: 0,
+    borderWidth: 0,
+    overflow: "hidden",
+  },
+  buttonContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    marginTop: 70,
+  },
+});
+
+export default HomeScreen;
