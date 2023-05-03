@@ -143,9 +143,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Image,
 } from "react-native";
 
 import background from "../assets/homeBack3.jpg";
+import logo from "../assets/image.png";
 import { LinearGradient } from "expo-linear-gradient";
 
 const HomeScreen = ({ navigation }) => {
@@ -155,7 +157,10 @@ const HomeScreen = ({ navigation }) => {
         source={background}
         resizeMode="cover"
         style={styles.backgroundImage}
-      ></ImageBackground>
+      >
+        <View style={styles.overlay} />
+        <Image source={logo} style={styles.logo} />
+      </ImageBackground>
       <View style={styles.contentContainer}>
         <LinearGradient
           colors={["#FFC0CB", "#4c00b0"]}
@@ -243,6 +248,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     marginTop: 70,
+  },
+  logo: {
+    width: 270,
+    height: 200,
+    alignSelf: "center",
+    marginBottom: 40,
   },
 });
 

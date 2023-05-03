@@ -13,7 +13,7 @@ import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 
 import nightSky from "../assets/nightSky.jpeg";
-import logo from "../assets/logo-removebg-preview.png";
+import logo from "../assets/image.png";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -25,13 +25,15 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const getStuff = () => {
-    axios.get("http://localhost:3000/users/")
-    .then(function(response) {
+    axios
+      .get("http://localhost:3000/users/")
+      .then(function (response) {
         alert(JSON.stringify(response.data));
-    }).catch(function(error) {
-        alert(error)
-    })
-  }
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -70,7 +72,8 @@ const LoginScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.loginBtn}
             onPress={() => {
-              let userExist = false, passwordValid = false;
+              let userExist = false,
+                passwordValid = false;
 
               navigation.navigate("Home");
             }}
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,.3)",
   },
   logo: {
-    width: 200,
+    width: 270,
     height: 200,
     alignSelf: "center",
     marginBottom: 40,
