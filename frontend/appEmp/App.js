@@ -7,6 +7,7 @@ import Social from "./app/Social";
 import TextToSpeech from "./app/TextToSpeech";
 import Chatbot from "./app/Chatbot";
 import Signup from "./app/Signup";
+import SpeechToText from "./app/SpeechToText";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -18,11 +19,12 @@ export default function App() {
         }}
       >
         <Stack.Screen name="signIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={Signup} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Social" component={Social} />
         <Stack.Screen name="TextToSpeech" component={TextToSpeech} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
-        <Stack.Screen name="SignUp" component={Signup} />
+        <Stack.Screen name="SpeechToText" component={SpeechToText} />
       </Stack.Navigator>
     </NavigationContainer>
   );

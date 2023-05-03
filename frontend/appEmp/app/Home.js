@@ -186,6 +186,14 @@ const HomeScreen = ({ navigation }) => {
             >
               <Text style={styles.buttonText}>Social</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("SpeechToText");
+              }}
+            >
+              <Text style={styles.buttonText}>Speech To Text</Text>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>

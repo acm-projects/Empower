@@ -10,7 +10,7 @@ const Chatbot = ({ navigation }) => {
   const [messages, setMessages] = useState([]);
   const router = useRouter();
 
-  const KEY = "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";
+  const KEY = "";
 
   const handleSend = async (newMessage = []) => {
     try {

@@ -8,20 +8,45 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
+import axios from "axios";
 
 import { LinearGradient } from "expo-linear-gradient";
 
 import nightSky from "../assets/nightSky.jpeg";
 import logo from "../assets/logo-removebg-preview.png";
 
+
 const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignup = () => {
-    // handle signup logic here
-    navigation.navigate("Home");
+  const postUserInfo = (username, pass) => {
+    axios.post("http://localhost:3000/users/register", {
+      name: username,
+      password: pass
+    })
+    .then(function (response) {
+      // handle success
+
+    }).catch(function (error) {
+      // handle error
+      alert(error);
+    });
+  }
+
+  const handleSignup = (user, pass, passConfirmed) => {
+    if(passConfirmed === pass){
+      postUserInfo(user,pass);
+      navigation.navigate("Home");
+    }
+    else{
+      return(
+        <View>
+          <Text>Password does not match</Text>
+        </View>
+      );
+    }
   };
 
   return (
@@ -68,7 +93,7 @@ const SignupScreen = ({ navigation }) => {
               onChangeText={(text) => setConfirmPassword(text)}
             />
           </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={handleSignup}>
+          <TouchableOpacity style={styles.loginBtn} onPress={()=>handleSignup(username, password, confirmPassword)}>
             <Text style={styles.signupText}>SIGN UP</Text>
           </TouchableOpacity>
           <View style={styles.loginContainer}>

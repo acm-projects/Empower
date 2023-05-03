@@ -8,6 +8,7 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
+import axios from "axios";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -22,6 +23,15 @@ const LoginScreen = ({ navigation }) => {
     // handle login logic here
     navigation.navigate("Home");
   };
+
+  const getStuff = () => {
+    axios.get("http://localhost:3000/users/")
+    .then(function(response) {
+        alert(JSON.stringify(response.data));
+    }).catch(function(error) {
+        alert(error)
+    })
+  }
 
   return (
     <View style={styles.container}>
@@ -60,6 +70,8 @@ const LoginScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.loginBtn}
             onPress={() => {
+              let userExist = false, passwordValid = false;
+
               navigation.navigate("Home");
             }}
           >

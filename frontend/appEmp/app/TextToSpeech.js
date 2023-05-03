@@ -1,17 +1,30 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, Button, StyleSheet } from "react-native";
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import * as Speech from "expo-speech";
-import { useRouter } from "expo-router";
 import { globalElements } from "../ui/globalUI.js";
+import axios from "axios";
+import { Audio } from "expo-av";
 
 const TextToSpeech = ({ navigation }) => {
   const [text, setText] = useState("");
-  const router = useRouter();
 
-  const speak = () => {
-    Speech.speak(text, { language: "en" });
-  };
+  const handleSpeak = async () => {
+    try{
+      const response = await axios.post("http://localhost:3000/polly", {text});
+      const audio = new Audio.Sound();
+      const url = response.data;
+
+      const audioBlob = new Blob([url], {type: "audio/mpeg"});
+      const audioURL = URL.createObjectURL(audioBlob);
+      
+      await audio.loadAsync({uri: audioURL}, {shouldCorrectPitch: true});
+      await audio.playAsync();
+
+
+    }catch(error){
+      console.error(error);
+    }
+  }
 
   return (
     <LinearGradient
@@ -24,11 +37,14 @@ const TextToSpeech = ({ navigation }) => {
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
     >
-      <Button
-        title="Back"
-        onPress={() => navigation.goBack()}
-        style={{ alignSelf: "left" }}
-      />
+      <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
       <View style={styles.main}>
         <Text style={styles.title}>Text To Speech</Text>
         <TextInput
@@ -38,7 +54,7 @@ const TextToSpeech = ({ navigation }) => {
           placeholder="Enter Text Here"
           placeholderTextColor="#fff"
         />
-        <Button title="Speak" onPress={speak} />
+        <Button title="Speak" onPress={() => handleSpeak()} />
       </View>
     </LinearGradient>
   );
@@ -73,30 +89,11 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 30,
   },
+  buttonText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 18,
+  }
 });
 
 export default TextToSpeech;
-
-/*import React, { useState } from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
-import * as Speech from 'expo-speech';
-
-const TextToSpeech = () => {
-  const [text, setText] = useState('');
-
-  const speak = () => {
-    Speech.speak(text, { language: 'en' });
-  };
-
-  return (
-    <View>
-      <TextInput
-        style={{ height: '50%', borderColor: 'gray', borderWidth: 1 }}
-        onChangeText={setText}
-        value={text}
-      />
-      <Button title="Speak" onPress={speak} />
-    </View>
-  );
-};
-*/
