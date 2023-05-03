@@ -145,7 +145,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-import background from "../assets/homeBack3.jpeg";
+import background from "../assets/homeBack3.jpg";
 import { LinearGradient } from "expo-linear-gradient";
 
 const HomeScreen = ({ navigation }) => {

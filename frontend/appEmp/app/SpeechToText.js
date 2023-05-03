@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, TouchableOpacity, View, Button } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View, Button, ScrollView } from "react-native";
 import axios from "axios";
 import { Audio } from "expo-av";
 import { FontAwesome } from "@expo/vector-icons";
@@ -99,16 +99,14 @@ const SpeechToText = ({navigation}) => {
     
     <Button title="Back" onPress={() => navigation.goBack()}/>
     <Text style={styles.present}>Speech-To-Text</Text>
-    <View>
-      {transcriptionResult? (
-        <Text style={styles.result}>{transcriptionResult}</Text>
-      ): (<Text style={styles.instructions}>Press the Microphone to Start recording</Text>)}
-    </View>
-    <View style={styles.biggerBox}>
-      <View style={styles.smallerBox}>
-
+    
+    <ScrollView style={styles.biggerBox} horizontal={false}>
+      <View>
+        {transcriptionResult? (
+          <Text style={styles.result}>{transcriptionResult}</Text>
+        ): (<Text style={styles.instructions}>Press the Microphone to Start recording smlsmckldskokkcndskjnclckcsdklmclkdsmklcmdslkmcklsdmclkmdsklcmkldsmclkdsmclkmdslkcmlkdsmclkdsmlkcmdsklmcldskcmdklsmclkdsmckldmslkcmdslkcmlkdsmclksdmlkcmdslkcmlkdcmlcdcokmclkdmfcklmdklcmkmbklgmklhmklhgmblkhyjnlkmklmnkjlmnklmylkmklnmkylmnlkknmklhbmlymkldsmckldsmlc</Text>)}
       </View>
-    </View>
+    </ScrollView>
       <TouchableOpacity
         onPressIn={startRecording}
         onPressOut={stopRecording}
@@ -132,9 +130,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF0000",
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
+    alignSelf: "center"
   },result: {
-    color: "#fff",
+    color: "#000",
     fontSize: 20,
     marginTop: 20,
     textAlign: "center",
@@ -152,17 +150,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   biggerBox: {
-    height:410,
-    width: 310,
-    backgroundColor: "white",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignContent: "center"
-  },
-  smallerBox: {
-    height: 400,
-    width: 300,
-    backgroundColor: "black",
+    backgroundColor: 'lightblue',
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    alignSelf: 'flex-start',
+    flexWrap: 'wrap',
+    maxHeight: 350, // set minimum height
+    maxWidth: 400,
     alignSelf: "center"
   }
 });

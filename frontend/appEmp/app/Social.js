@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   map: {
-    flex: 1,
+    flex: 10,
     heigth: "100%",
     paddingTop: 0
   },
